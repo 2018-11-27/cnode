@@ -16,10 +16,11 @@
 </script>
 
 <style>
-  /*@import 'assets/bootstrap-3.3.7/css/bootstrap.css';*/
+  @import 'assets/bootstrap-3.3.7/css/bootstrap.min.css';
+  @import 'assets/z-ft-as-4.7.0/css/font-awesome.min.css';
 
-  html {
-    /*全站背景颜色*/
+  body {
+    /*!*全站背景颜色*!*/
     background-color: #DDDDDD;
 
     /*默认的 1rem 等于 16px, 下面将使 1rem 等于 10px, 便于单位换算*/

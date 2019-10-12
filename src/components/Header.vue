@@ -3,18 +3,45 @@
     <router-link :to="{name: 'root'}">
       <img src="../assets/cnodejs_light.svg">
     </router-link>
+    <img v-if="loading" src="../assets/loading.jpg" alt="loading" class="loading">
     <span><a href="#">关于</a></span>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'Header'
+  import axios from 'axios'
+
+  axios.interceptors.request.use(config => {
+    vm.loading = true
+    return config
+  }, error => {
+    return Promise.reject(error)
+  })
+
+  axios.interceptors.response.use(response => {
+    console.log(vm.loading)
+    vm.loading = false
+    console.log(vm.loading)
+    return response
+  }, error => {
+    return Promise.reject(error)
+  })
+
+  const vm = {
+    name: 'Header',
+    data () {
+      return {
+        loading: false
+      }
+    }
   }
+
+  export default vm
 </script>
 
-<!--添加 "scopod" 属性以将css仅限于此组件-->
 <style scoped>
+  /*添加 "scopod" 属性以将CSS仅限于此组件*/
+
   .header {
     background: #5a5555;
     height: 50px;
@@ -25,15 +52,23 @@
     color: #cbc9c9;
   }
 
-  img {
-    max-width: 120px;
-    margin-left: 50px;
-    margin-top: 10px;
+  .header > a > img {
+    max-width: 12rem;
+    margin-left: 5rem;
+    margin-top: 0.5rem;
+  }
+
+  .header .loading {
+    width: 3rem;
+    height: 3rem;
+    margin-top: 0.6rem;
+    margin-left: 1rem;
+    border-radius: 50%;
   }
 
   span {
     float: right;
-    margin-right: 50px;
-    margin-top: 10px;
+    margin-right: 5rem;
+    margin-top: 1rem;
   }
 </style>

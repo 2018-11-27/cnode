@@ -5,16 +5,11 @@
 </template>
 
 <script>
-  import pageLeft from './left'
-
   export default {
     name: 'index',
     components: {
-      pageLeft,
+      pageLeft: () => import('./left'),
+      pageRight: () => import ('./right')
     }
   }
 </script>
-
-<style>
-
-</style>

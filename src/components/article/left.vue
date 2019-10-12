@@ -24,7 +24,7 @@
           <span>{{index + 1}}楼</span>
         </div>
         <section v-if="reply.ups.length > 0">
-           <i class="fa fa-thumbs-o-up"></i>{{reply.ups.length}}
+          <i class="fa fa-thumbs-o-up"></i>{{reply.ups.length}}
         </section>
         <div v-html="reply.content" class="reply-content"></div>
       </div>
@@ -39,14 +39,14 @@
       return {
         post: {
           author: {
-            loginname: 'temp',
+            loginname: 'temp', // 设置默认值，用于避免Vue在axios未被调用前报错
           }
         }
       }
     },
     computed: {
       postTab () {
-        const type = this.post.tab.toString()
+        const type = this.post.tab
         if (type === 'ask') {
           return '问答'
         } else if (type === 'share') {
@@ -67,7 +67,6 @@
             mdrender: true
           }
         }).then(res => {
-          console.log(res)
           this.post = res.data.data
         }).catch(err => {
           console.log(err)
@@ -81,12 +80,20 @@
 </script>
 
 <style>
-  /* "scoped" 属性会导致CSS仅对当前组件生效，
-    而HTML绑定渲染出的内容可以理解为是子组件的内容，
-    子组件不会被加上对应的属性，所以不会应用CSS。
-    解决方法就是把 "scoped" 属性去掉😜 */
-  @import url("../../assets/markdown-github.css");
+  /*注意：v-html 渲染出的内容是属于子组件的，scoped 属性会导致CSS仅对当前组件生效
+  而HTML绑定渲染出的内容可以理解为是子组件的内容，子组件不会被加上对应的属性，所以不会应用CSS
+  解决方法就是重写一个 style 标签*/
 
+  .content * {
+    max-width: 100%;
+  }
+
+  .reply-content * {
+    max-width: 100%;
+  }
+</style>
+
+<style scoped>
   .article-section {
     -webkit-box-sizing: border-box; /*webkit的盒子模型: 默认值, 网页预设*/
     -moz-box-sizing: border-box; /*moz的盒子模型: 默认值, 网页预设*/
@@ -96,12 +103,6 @@
     border: 0.1rem solid #ddd;
     padding: 1.1rem 0.6rem;
     margin-left: 3%;
-  }
-
-  .article-section .content {
-    padding: 3.2rem 1.6rem 3.2rem 1.6rem;
-    line-height: 1.6;
-    padding-bottom: 1.6rem;
   }
 
   .article {
@@ -127,6 +128,13 @@
     color: inherit; /*继承父级*/
     text-decoration: none;
     border-bottom: 0.1rem solid
+  }
+
+  .content {
+    padding: 3.2rem 1.6rem 3.2rem 1.6rem;
+    line-height: 1.6;
+    padding-bottom: 1.6rem;
+    word-wrap: break-word;
   }
 
   .reply {
@@ -174,17 +182,12 @@
   .reply-content {
     padding-left: 5rem;
     clear: both;
+    word-wrap: break-word; /*自动换行*/
   }
 
   .reply-sec img {
     width: 2.4rem;
     height: 2.4rem;
     margin-right: 1.6rem;
-  }
-
-  .reply-content img {
-    overflow: hidden; /*文字超出部分隐藏*/
-    width: 100%;
-    height: 100%;
   }
 </style>

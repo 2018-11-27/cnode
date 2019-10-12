@@ -4,10 +4,16 @@
 
 <script>
   export default {
-    name: 'right'
+    name: 'right',
+    data () {
+      return {
+        userinfo: null,
+      }
+    },
+    methods: {}
   }
 </script>
 
-<style scoped>
+<style>
 
 </style>
