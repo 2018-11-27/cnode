@@ -33,13 +33,16 @@
 </template>
 
 <script>
+  import {watchRoute} from './index'
+
   export default {
     name: 'left',
+    mixins: [watchRoute],
     data () {
       return {
         post: {
           author: {
-            loginname: 'temp', // 设置默认值，用于避免Vue在axios未被调用前报错
+            loginname: '', // 设置默认值，用于避免Vue在axios未被调用前报错
           }
         }
       }
@@ -56,7 +59,7 @@
         } else if (type === 'good') {
           return '精华'
         } else {
-          return '为定义'
+          return '未定义'
         }
       }
     },
@@ -67,7 +70,9 @@
             mdrender: true
           }
         }).then(res => {
-          this.post = res.data.data
+          if (res.data.success) {
+            this.post = res.data.data
+          }
         }).catch(err => {
           console.log(err)
         })
@@ -101,7 +106,7 @@
     display: inline-block;
     width: 70%;
     border: 0.1rem solid #ddd;
-    padding: 1.1rem 0.6rem;
+    padding: 1.2rem 0.6rem;
     margin-left: 3%;
   }
 

@@ -10,6 +10,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.$ajax = axios
 
+// A global filter.
 Vue.filter('timeDifference', function (value) {
   /* 一个全局过滤器 */
   if (!value) return ''

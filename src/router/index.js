@@ -17,6 +17,11 @@ export default new Router({
       components: {
         default: () => import('@/components/article/index')
       }
+    },
+    {
+      path: '/user/:name',
+      name: 'user',
+      component: () => import('@/components/Userinfo')
     }
   ]
 })

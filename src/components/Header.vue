@@ -19,9 +19,7 @@
   })
 
   axios.interceptors.response.use(response => {
-    console.log(vm.loading)
     vm.loading = false
-    console.log(vm.loading)
     return response
   }, error => {
     return Promise.reject(error)
